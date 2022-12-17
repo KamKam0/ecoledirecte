@@ -1,6 +1,6 @@
 {
   "name": "@kamkam1_0/ecoledirecte",
-  "version": "1.0.0",
+  "version": "2.5.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/KamKam0/ecoledirecte/issues"
   },
-  "keywords": ["Youtube", "Deezer", "Spotify", "Soundcloud", "Search"],
+  "keywords": ["EcoleDirecte"],
   "homepage": "https://github.com/KamKam0/ecoledirecte",
   "author": "KamKam <kamkam.dev.contact@gmail.com>",
   "license": "BSD 2",
