@@ -13,7 +13,7 @@ class Student{
         this.Datas = {LastPing: Date.now(), ID: id, MDP: mdp, State: "Connected"}
     }
 
-    async Reload(){
+    async #Reload(){
         let params = {
             method: "POST",
             headers: {
@@ -44,7 +44,7 @@ class Student{
     }
 
     getNotes(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/notes.awp?verbe=get`, this.Session.Token)
@@ -65,7 +65,7 @@ class Student{
     }
 
     getPeriodes(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/notes.awp?verbe=get`, this.Session.Token)
@@ -75,7 +75,7 @@ class Student{
     }
 
     getMatieres(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/notes.awp?verbe=get`, this.Session.Token)
@@ -95,7 +95,7 @@ class Student{
     }
 
     getInfos(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             let totr = {
@@ -116,7 +116,7 @@ class Student{
     }
 
     getTeachers(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/messagerie/contacts/professeurs.awp?verbe=get&idClasse=${this.Classe.ID}`, this.Session.Token)
@@ -134,7 +134,7 @@ class Student{
     }
 
     getEmploiDuTemps(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/E/${this.User.ID}/emploidutemps.awp?verbe=get&v=4.6.0`, this.Session.Token)
@@ -150,7 +150,7 @@ class Student{
     }
 
     getMails(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/messages.awp?verbe=getall&orderBy=date&order=desc`, this.Session.Token)
@@ -160,7 +160,7 @@ class Student{
     }
 
     DownloadPhotoEleve(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Photo(this.Eleve.Photo)
@@ -170,7 +170,7 @@ class Student{
     }
     
     getStaff(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/messagerie/contacts/personnels.awp?verbe=get`, this.Session.Token)
@@ -184,7 +184,7 @@ class Student{
     }
 
     getHomework(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/Eleves/${this.User.ID}/cahierdetexte.awp?verbe=get`, this.Session.Token)
@@ -198,7 +198,7 @@ class Student{
     }
 
     getHwByDay(day){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/Eleves/${this.User.ID}/cahierdetexte/${day}.awp?verbe=get`, this.Session.Token)
@@ -219,7 +219,7 @@ class Student{
     }
 
     getCloud(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/cloud/E/${this.User.ID}.awp?verbe=get`, this.Session.Token)
@@ -229,7 +229,7 @@ class Student{
     }
 
     Download(ID, Type){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Download(ID, Type, this.Session.Token)
@@ -239,7 +239,7 @@ class Student{
     }
 
     getMail(ID){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/messages/${ID}.awp?verbe=get&mode=destinataire`, this.Session.Token)
@@ -255,7 +255,7 @@ class Student{
     }
 
     getDocuments(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/elevesDocuments.awp?verbe=get`, this.Session.Token)
@@ -267,7 +267,7 @@ class Student{
     }
 
     getVieScolaire(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/viescolaire.awp?verbe=get`, this.Session.Token)
@@ -330,7 +330,7 @@ class Student{
     }
 
     SearchMails(query){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/messages.awp?force=true&typeRecuperation=received&idClasseur=0&orderBy=date&order=desc&query=${encodeURIComponent(query)}&onlyRead=&page=0&itemsPerPage=20&verbe=getall&v=4.6.0`, this.Session.Token)

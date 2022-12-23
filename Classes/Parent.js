@@ -10,7 +10,7 @@ class Parent{
         this.Enfants = Object.values(session.data.accounts[0].profile.eleves.map(ch => new Children(ch, id, mdp, this.Session.Token)))
     }
 
-    async Reload(){
+    async #Reload(){
         let params = {
             method: "POST",
             headers: {
@@ -41,7 +41,7 @@ class Parent{
     }
 
     getMailsParent(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/familles/${this.User.ID}/messages.awp?verbe=getall&orderBy=date&order=desc`, this.Session.Token)
@@ -51,7 +51,7 @@ class Parent{
     }
 
     getSituationFinanciere(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/factures.awp?verbe=get`, this.Session.Token)
@@ -61,7 +61,7 @@ class Parent{
     }
 
     getInfos(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/famillecoordonnees.awp?verbe=get`, this.Session.Token)
@@ -71,7 +71,7 @@ class Parent{
     }
 
     getDocuments(){
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/familledocuments.awp?archive=&verbe=get`, this.Session.Token)
@@ -88,7 +88,7 @@ class Parent{
 
     getNotesChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -111,7 +111,7 @@ class Parent{
 
     getPeriodesChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -123,7 +123,7 @@ class Parent{
 
     getMatieresChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -145,7 +145,7 @@ class Parent{
 
     getEmploiDuTempsChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -163,7 +163,7 @@ class Parent{
 
     getMailsChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -175,7 +175,7 @@ class Parent{
 
     DownloadPhotoEleve(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -187,7 +187,7 @@ class Parent{
     
     getHomeworkChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
@@ -203,7 +203,7 @@ class Parent{
 
     getVieScolaireChildren(children){
         let User = this.getChildren(children)
-        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.Reload()
+        if((((Date.now() - this.Datas.LastPing) / 1000) / 60) > 10) this.#Reload()
         return new Promise(async (resolve, reject) => {
             if(!User) return reject("invalid User")
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
