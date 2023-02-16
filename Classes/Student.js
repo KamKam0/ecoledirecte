@@ -204,12 +204,21 @@ class Student{
             Request(`https://api.ecoledirecte.com/v3/Eleves/${this.User.ID}/cahierdetexte/${day}.awp?verbe=get`, this.Session.Token)
             .catch(err => { return reject(new Error(err))})
             .then(hmow => {
+                const correspondance = require("../constants").caractersHTML
                 let devoirs_total = []
                 hmow.data.matieres.forEach(ma => {
                     if(ma.aFaire){
                         let texte = Buffer.from(ma.aFaire.contenu, "base64").toString()
-                        const { convert } = require("html-to-text")
-                        texte = convert(texte)
+                        correspondance.forEach(element => {
+                            if(texte.includes(element.htmlOne)) texte = texte.replaceAll(element.htmlOne, element.text)
+                            if(texte.includes(element.htmlTwo)) texte = texte.replaceAll(element.htmlTwo, element.text)
+                        })
+                        texte = texte.split('<').filter(e => e.split(">")[1]).map(e => {
+                            let textPlus = []
+                            if(e.includes("link")) textPlus.push(e.split(">")?.find(v => v.includes("href="))?.split("href=")?.[1]?.slice(1, -1) || "")
+                            textPlus = textPlus.filter(e => e.length > 0)
+                            return textPlus.length > 0 ? textPlus.join(" ") + " " + e.split(">")[1] : e.split(">")[1]
+                        }).join("")
                         devoirs_total.push({Date: new Date(day).toUTCString("fr"), Matiere: ma.matiere, Prof: ma.nomProf, Contenu: texte, Donnele: new Date(ma.aFaire.donneLe).toUTCString("fr"), IDdevoir: ma.aFaire.idDevoir, Documents: ma.aFaire.documents})
                     }
                 })
