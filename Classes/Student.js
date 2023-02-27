@@ -16,19 +16,13 @@ class Student{
     async #Reload(){
         let params = {
             method: "POST",
-            headers: {
-                authority: 'api.ecoledirecte.com',
-                accept: 'application/json, text/plain, */*',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
-                'content-type': 'application/x-www-form-urlencoded',
-                origin: 'https://www.ecoledirecte.com',
-                'sec-fetch-site': 'same-site',
-                'sec-fetch-mode': 'cors',
-                'sec-fetch-dest': 'empty',
-                referer: 'https://www.ecoledirecte.com/',
-                'accept-language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7'
-            },
-            body: `data={\n	\"identifiant\": \"${this.Datas.ID}\",\n	\"motdepasse\": \"${this.Datas.MDP}\"\n}`
+            headers: require("../constants").Headers,
+            body: "data="+ JSON.stringify({
+                uuid: "",
+                identifiant: this.Datas.ID,
+                motdepasse: this.Datas.MDP,
+                isReLogin: false
+            })
         }
         let datas = await require("node-fetch")("https://api.ecoledirecte.com/v3/login.awp", params)
         datas = await datas.json()
@@ -48,7 +42,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/notes.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => { 
                 let tron_by_periode = []
                 datas.data.periodes.forEach(period => {
@@ -69,8 +63,8 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/notes.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
-            .then(datas => { return resolve(datas.data.periodes)})
+            .catch(err => reject(new Error(err)))
+            .then(datas => resolve(datas.data.periodes))
         })
     }
 
@@ -79,7 +73,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/notes.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 datas = datas.data.notes
                 let global = []
@@ -120,7 +114,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/messagerie/contacts/professeurs.awp?verbe=get&idClasse=${this.Classe.ID}`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 let contacts = datas.data.contacts
                 let def = contacts.map(c => `${c.civilite === "Mme" ? `👩  ${c.prenom} ${c.nom} (${c.classes.map(cl => cl.matiere).join(", ")})` : `👨  ${c.prenom} ${c.nom} (${c.classes.map(cl => cl.matiere).join(", ")})`}`).join("\n\n")
@@ -138,7 +132,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/E/${this.User.ID}/emploidutemps.awp?verbe=get&v=4.6.0`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 datas = datas.data.map(e => {return {...e, compare_date: Date.parse(new Date(e.start_date))}}).sort((a, b) => a.compare_date - b.compare_date)
                 let toreturn;
@@ -154,8 +148,8 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/messages.awp?verbe=getall&orderBy=date&order=desc`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
-            .then(datas => { return resolve(datas.data.messages) })
+            .catch(err => reject(new Error(err)))
+            .then(datas => resolve(datas.data.messages))
         })
     }
 
@@ -164,8 +158,8 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Photo(this.Eleve.Photo)
-            .catch(err => { return reject(new Error(err))})
-            .then(datas => { return resolve(datas) })
+            .catch(err => reject(new Error(err)))
+            .then(datas => resolve(datas) )
         })
     }
     
@@ -174,7 +168,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/messagerie/contacts/personnels.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 let contacts = datas.data.contacts
                 let def = contacts.map(c => `${c.civilite === "Mme" ? `👩  ${c.prenom} ${c.nom} (${c.fonction.libelle})` : `👨  ${c.prenom} ${c.nom} (${c.fonction.libelle})`}`).join("\n\n")
@@ -188,7 +182,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/Eleves/${this.User.ID}/cahierdetexte.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 datas = datas.data
                 if(!Object.values(datas)[0]) return resolve("Aucun Travail à faire !")
@@ -202,23 +196,14 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/Eleves/${this.User.ID}/cahierdetexte/${day}.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(hmow => {
-                const correspondance = require("../constants").caractersHTML
+                const htmlToText = require("../utils").htmlToText
                 let devoirs_total = []
                 hmow.data.matieres.forEach(ma => {
                     if(ma.aFaire){
                         let texte = Buffer.from(ma.aFaire.contenu, "base64").toString()
-                        correspondance.forEach(element => {
-                            if(texte.includes(element.htmlOne)) texte = texte.replaceAll(element.htmlOne, element.text)
-                            if(texte.includes(element.htmlTwo)) texte = texte.replaceAll(element.htmlTwo, element.text)
-                        })
-                        texte = texte.split('<').filter(e => e.split(">")[1]).map(e => {
-                            let textPlus = []
-                            if(e.includes("link")) textPlus.push(e.split(">")?.find(v => v.includes("href="))?.split("href=")?.[1]?.slice(1, -1) || "")
-                            textPlus = textPlus.filter(e => e.length > 0)
-                            return textPlus.length > 0 ? textPlus.join(" ") + " " + e.split(">")[1] : e.split(">")[1]
-                        }).join("")
+                        texte = htmlToText(texte)
                         devoirs_total.push({Date: new Date(day).toUTCString("fr"), Matiere: ma.matiere, Prof: ma.nomProf, Contenu: texte, Donnele: new Date(ma.aFaire.donneLe).toUTCString("fr"), IDdevoir: ma.aFaire.idDevoir, Documents: ma.aFaire.documents})
                     }
                 })
@@ -232,8 +217,8 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/cloud/E/${this.User.ID}.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
-            .then(datas => { return resolve(datas.data[0]) })
+            .catch(err => reject(new Error(err)))
+            .then(datas => resolve(datas.data[0]) )
         })
     }
 
@@ -242,8 +227,8 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Download(ID, Type, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
-            .then(datas => { return resolve(datas)})
+            .catch(err => reject(new Error(err)))
+            .then(datas => resolve(datas))
         })
     }
 
@@ -252,12 +237,12 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/messages/${ID}.awp?verbe=get&mode=destinataire`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 datas = datas.data
                 let texte = Buffer.from(datas.content, "base64").toString()
-                const { convert } = require("html-to-text")
-                datas.content = convert(texte)
+                const htmlToText = require("../utils").htmlToText
+                datas.content = htmlToText(texte)
                 return resolve(datas)
             })
         })
@@ -268,7 +253,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/elevesDocuments.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 return resolve(datas.data)
             })
@@ -280,7 +265,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/viescolaire.awp?verbe=get`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 let truedata = {}
                 Object.entries(datas.data).filter(e => e[0] !== "parametrage").forEach(da => truedata[da[0]] = da[1])
@@ -343,7 +328,7 @@ class Student{
         return new Promise(async (resolve, reject) => {
             if(this.Session.Code !== 200) return reject(new Error({code: this.Session.Code, message: this.Session.Message}))
             Request(`https://api.ecoledirecte.com/v3/eleves/${this.User.ID}/messages.awp?force=true&typeRecuperation=received&idClasseur=0&orderBy=date&order=desc&query=${encodeURIComponent(query)}&onlyRead=&page=0&itemsPerPage=20&verbe=getall&v=4.6.0`, this.Session.Token)
-            .catch(err => { return reject(new Error(err))})
+            .catch(err => reject(new Error(err)))
             .then(datas => {
                 datas = datas.data.messages.received
                 return resolve(datas)
