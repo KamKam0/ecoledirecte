@@ -8,7 +8,7 @@ npm i @kamkam1_0/ecoledirecte.js
 
 ## Initiation
 ```js
-const EcoleDirecte = require("@kamkam1_0/ecoledirecte.js")
+const EcoleDirecte = require("@kamkam1_0/ecoledirecte")
 const Account =  new EcoleDirecte.Account("LOGIN ID", "LOGIN PASSWORD")
 let Session = await Account.Login()
 ```
