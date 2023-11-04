@@ -1,4 +1,8 @@
-const Headers = {
+const ecoleDirecteAPIBase = 'https://api.ecoledirecte.com/v3'
+
+const ecoleDirecteAPIEndBase = '.awp?verbe=get&v=4.43.0'
+
+const headers = {
   accept: "application/json, text/plain, */*",
   'accept-encoding':" gzip, deflate, br",
   'accept-language': "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -8,7 +12,8 @@ const Headers = {
   'sec-fetch-dest': "empty",
   'sec-fetch-mode': "cors",
   'sec-fetch-site': "same-site",
-  'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+  'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+  'X-Token': null
 }
 
 const caractersHTML = [
@@ -303,4 +308,17 @@ const caractersHTML = [
   { text: 'ϒ', htmlOne: '&upsih;', htmlTwo: '&#978;' }
 ]
 
-module.exports = {Headers, caractersHTML}
+const fileConverter = {
+  "D": "FICHIER_CDT",
+  "M": "PIECE_JOINTE",
+  "C": "CLOUD",
+  "doc": "Doc"
+}
+
+module.exports = {
+  headers, 
+  caractersHTML,
+  fileConverter,
+  ecoleDirecteAPIBase,
+  ecoleDirecteAPIEndBase
+}

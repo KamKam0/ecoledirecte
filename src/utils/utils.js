@@ -1,5 +1,13 @@
+const constants = require("./constants")
+
+function getHeaders(token){
+    let basicHeader = constants.headers
+    basicHeader["X-Token"] = token
+    return basicHeader
+}
+
 function htmlToText(texte){
-    const correspondance = require("./constants").caractersHTML
+    const correspondance = constants.caractersHTML
     correspondance.forEach(element => {
         if(texte.includes(element.htmlOne)) texte = texte.replaceAll(element.htmlOne, element.text)
         if(texte.includes(element.htmlTwo)) texte = texte.replaceAll(element.htmlTwo, element.text)
@@ -13,4 +21,7 @@ function htmlToText(texte){
     return texte
 }
 
-module.exports = {htmlToText}
+module.exports = {
+    htmlToText,
+    getHeaders
+}
