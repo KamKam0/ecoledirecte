@@ -10,17 +10,15 @@ npm i @kamkam1_0/ecoledirecte.js
 ```js
 const EcoleDirecte = require("@kamkam1_0/ecoledirecte")
 const Account =  new EcoleDirecte.Account("LOGIN ID", "LOGIN PASSWORD")
-let Session = await Account.Login()
+let session = await Account.login()
 ```
 
-## How to use
-
-The module only supports students account for now.
+## How to use - Etudiant
 
 ### Marks
 
 ```js
-let Marks = await Session.getNotes()
+let marks = await session.getNotes()
 /* Expexted Output
     {
         notes: [
@@ -74,7 +72,7 @@ let Marks = await Session.getNotes()
 ### Mails
 
 ```js
-let Mails = await Session.getMails()
+let mails = await session.getMails()
 /* Expexted Output
     {
         received: [
@@ -137,7 +135,7 @@ let Mails = await Session.getMails()
 ### Mails - Search
 
 ```js
-let Mails = await Session.SearchMails(query)
+let mails = await session.searchMails(query)
 /* Expexted Output
     [
         {
@@ -176,7 +174,7 @@ let Mails = await Session.SearchMails(query)
 ### Periodes
 
 ```js
-let Periodes = await Session.getPeriodes()
+let periodes = await session.getPeriodes()
 /* Expexted Output
     [
         {
@@ -210,7 +208,7 @@ let Periodes = await Session.getPeriodes()
 ### Subjects
 
 ```js
-let Subjects = await Session.getMatieres()
+let subjects = await session.getMatieres()
 /* Expexted Output
     [
         { matiere: '', code: '' },
@@ -222,7 +220,7 @@ let Subjects = await Session.getMatieres()
 ### Teachers
 
 ```js
-let Teachers = await Session.getTeachers()
+let teachers = await session.getTeachers()
 /* Expexted Output
     {
         def: 
@@ -248,7 +246,7 @@ let Teachers = await Session.getTeachers()
 ### Schedule
 
 ```js
-let Schedule = await Session.getEmploiDuTemps()
+let schedule = await session.getEmploiDuTemps()
 /* Expexted Output
 
 */
@@ -259,7 +257,7 @@ let Schedule = await Session.getEmploiDuTemps()
 Get the buffer of your profil picture
 
 ```js
-let Picture = await Session.DownloadPhotoEleve()
+let picture = await session.downloadProfilePicture()
 /* Expexted Output
     <Buffer>
 */
@@ -268,7 +266,7 @@ let Picture = await Session.DownloadPhotoEleve()
 ### Staff
 
 ```js
-let Staff = await Session.getStaff()
+let staff = await session.getStaff()
 /* Expexted Output
     '👨  NAME (Subject)\n' +
     '\n' +
@@ -281,7 +279,7 @@ let Staff = await Session.getStaff()
 ### HomeWork
 
 ```js
-let HomeWork = await Session.getHomework()
+let homeWork = await session.getHomework()
 /* Expexted Output
     {
         '2023-01-03': [
@@ -307,7 +305,7 @@ let HomeWork = await Session.getHomework()
 You can also get homework for a specific day (including what you have to do)
 
 ```js
-let HomeWork = await Session.getHwByDay(day)
+let homeWork = await session.getHomeworkByDay(day)
 /* Expexted Output
     [
         {
@@ -327,7 +325,7 @@ let HomeWork = await Session.getHwByDay(day)
 ### Cloud
 
 ```js
-let Cloud = await Session.getCloud()
+let cloud = await session.getCloud()
 /* Expexted Output
     {
         type: 'folder',
@@ -355,7 +353,7 @@ let Cloud = await Session.getCloud()
 ### Documents
 
 ```js
-let Documents = await Session.getDocuments()
+let documents = await session.getDocuments()
 /* Expexted Output
     {
         factures: [],
@@ -397,7 +395,7 @@ let Documents = await Session.getDocuments()
 ### School Life
 
 ```js
-let SchoolLife = await Session.getVieScolaire()
+let schoolLife = await session.getVieScolaire()
 /* Expexted Output
     {
         absencesRetards: [
@@ -451,7 +449,7 @@ Periods variable is the periods you get with the .trons in the .getNotes method
 Period variable refers the code of the period. For exemple: A001
 
 ```js
-let M = await Session.CalculMoyenne(marks, periods, period)
+let moyenne = await session.calculerMoyenne(marks, periods, period)
 /* Expexted Output
     {
         matieres: [
@@ -475,16 +473,42 @@ let M = await Session.CalculMoyenne(marks, periods, period)
 
 ## Downloading files
 
-ID variable is the id of the file.
-Type is the ID of the place where you want to download the file:
+id variable is the id of the file.
+Type is the id of the place where you want to download the file:
 - D for the homwork page
 - M for the mail page
 - C for the cloud
 - doc for the document page
 
 ```js
-let M = await Session.Download(ID, Type)
+let document = await session.download(id, type)
 /* Expexted Output
     <Buffer>
 */
 ```
+
+## How to use - Parent
+
+The Parent account works the same as the Student one.
+The available methods are: 
+- getMails
+- getSituationFinanciere
+- getInfos
+- getDocuments
+
+### Children
+
+To see information about the cildren linked to the parent account you can use the getChildren method.
+
+You can either provide the name of the child or his index in the array of the property ``enfants``.
+
+```js
+let document = await session.getChildren('John')
+/* Expexted Output
+    Student{
+        
+    }
+*/
+```
+
+The children is a student, therefore you can use all the methods listed above.
