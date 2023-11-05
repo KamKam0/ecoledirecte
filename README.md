@@ -503,7 +503,7 @@ To see information about the cildren linked to the parent account you can use th
 You can either provide the name of the child or his index in the array of the property ``enfants``.
 
 ```js
-let document = await session.getChildren('John')
+let child = await session.getChildren('John')
 /* Expexted Output
     Student{
         
@@ -511,4 +511,4 @@ let document = await session.getChildren('John')
 */
 ```
 
-The children is a student, therefore you can use all the methods listed above.
+The child is a student, therefore you can use all the methods listed above.
