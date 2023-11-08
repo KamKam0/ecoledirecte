@@ -1,6 +1,6 @@
 {
   "name": "@kamkam1_0/ecoledirecte",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "description": "",
   "main": "./src/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/KamKam0/ecoledirecte/issues"
   },
-  "keywords": ["EcoleDirecte"],
+  "keywords": ["EcoleDirecte", "Ecole Directe", "france", "api", "node"],
   "homepage": "https://github.com/KamKam0/ecoledirecte",
   "author": "KamKam <kamkam.dev.contact@gmail.com>",
   "license": "ISC",
