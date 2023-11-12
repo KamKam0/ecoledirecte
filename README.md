@@ -3,7 +3,7 @@ EcoleDirecte is a simple to use module that allows you to interact with EcoleDir
 
 ## Installation
 ```js
-npm i @kamkam1_0/ecoledirecte.js
+npm i @kamkam1_0/ecoledirecte
 ```
 
 ## Initiation
@@ -474,7 +474,7 @@ let moyenne = await session.calculerMoyenne(marks, periods, period)
 ## Downloading files
 
 id variable is the id of the file.
-Type is the id of the place where you want to download the file:
+Type is a letter/word that indicates the page you want to download your file from:
 - D for the homwork page
 - M for the mail page
 - C for the cloud
