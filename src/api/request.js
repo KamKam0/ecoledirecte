@@ -23,7 +23,6 @@ module.exports = async (rawLink, token) => {
         if(request.status !== 200) return reject(request)
             
         const data = await request.json()
-        console.log(data)
 
         if(![200, 210].includes(data.code)) return reject(data)
         
