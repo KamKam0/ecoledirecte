@@ -35,7 +35,7 @@ class Parent extends Account{
         })
     }
 
-    async getSituationFinanciere(){
+    async getFinancialSituation(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -48,7 +48,7 @@ class Parent extends Account{
         })
     }
 
-    async getInfos(){
+    async getInfo(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {

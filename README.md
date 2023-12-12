@@ -18,7 +18,7 @@ let session = await Account.login()
 ### Marks
 
 ```js
-let marks = await session.getNotes()
+let marks = await session.getMarks()
 /* Expexted Output
     {
         notes: [
@@ -174,7 +174,7 @@ let mails = await session.searchMails(query)
 ### Periodes
 
 ```js
-let periodes = await session.getPeriodes()
+let periodes = await session.getPeriods()
 /* Expexted Output
     [
         {
@@ -208,7 +208,7 @@ let periodes = await session.getPeriodes()
 ### Subjects
 
 ```js
-let subjects = await session.getMatieres()
+let subjects = await session.getSubjects()
 /* Expexted Output
     [
         { matiere: '', code: '' },
@@ -246,7 +246,7 @@ let teachers = await session.getTeachers()
 ### Schedule
 
 ```js
-let schedule = await session.getEmploiDuTemps()
+let schedule = await session.getSchedule()
 /* Expexted Output
 
 */
@@ -395,7 +395,7 @@ let documents = await session.getDocuments()
 ### School Life
 
 ```js
-let schoolLife = await session.getVieScolaire()
+let schoolLife = await session.getSchoolOffice()
 /* Expexted Output
     {
         absencesRetards: [
@@ -444,12 +444,12 @@ let schoolLife = await session.getVieScolaire()
 
 ### Marks Average
 
-Mars variable is the marks you get with the .getNotes method
-Periods variable is the periods you get with the .trons in the .getNotes method
+Mars variable is the marks you get with the .getMarks method
+Periods variable is the periods you get with the .trons in the .getMarks method
 Period variable refers the code of the period. For exemple: A001
 
 ```js
-let moyenne = await session.calculerMoyenne(marks, periods, period)
+let moyenne = await session.calculareAverage(marks, periods, period)
 /* Expexted Output
     {
         matieres: [
@@ -492,8 +492,8 @@ let document = await session.download(id, type)
 The Parent account works the same as the Student one.
 The available methods are: 
 - getMails
-- getSituationFinanciere
-- getInfos
+- getFinancialSituation
+- getInfo
 - getDocuments
 
 ### Children

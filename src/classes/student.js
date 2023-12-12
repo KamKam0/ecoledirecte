@@ -26,7 +26,7 @@ class Student extends Account{
         }
     }
 
-    async getNotes(){
+    async getMarks(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -50,7 +50,7 @@ class Student extends Account{
         })
     }
 
-    async getPeriodes(){
+    async getPeriods(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -63,7 +63,7 @@ class Student extends Account{
         })
     }
 
-    async getMatieres(){
+    async getSubjects(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -86,7 +86,7 @@ class Student extends Account{
         })
     }
 
-    async getInfos(){
+    async getInfo(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -131,7 +131,7 @@ class Student extends Account{
         })
     }
 
-    async getEmploiDuTemps(){
+    async getSchedule(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -293,7 +293,7 @@ class Student extends Account{
         })
     }
 
-    async getVieScolaire(){
+    async getSchoolOffice(){
         return new Promise(async (resolve, reject) => {
             let reloaded = await this._reload()
             if(!reloaded) {
@@ -314,7 +314,7 @@ class Student extends Account{
         })
     }
 
-    calculerMoyenne(notes, trons, period){
+    calculareAverage(notes, trons, period){
         trons = trons.find(e => e.code === period).datas
         let toeval = notes.filter(no => no.codePeriode === period)
         let total = []
