@@ -16,7 +16,7 @@ class Parent extends Account{
             telephoneConjoint: parentAccount.profile.telPortableConjoint
         }
         
-        this.enfants = Object.values(parentAccount.profile.eleves.map(child => {
+        this.children = Object.values(parentAccount.profile.eleves.map(child => {
             child.token = session.token
             return new Student(child, id, password, true)
         }))
@@ -75,8 +75,8 @@ class Parent extends Account{
     }
 
     getChildren(identifier){
-        if(typeof identifier === "string") return this.enfants.find(instance => instance.eleve.prenom === identifier)
-        else if(typeof identifier === "number") return this.enfants[identifier]
+        if(typeof identifier === "string") return this.children.find(instance => instance.eleve.prenom === identifier)
+        else if(typeof identifier === "number") return this.children[identifier]
         else return null
     }
 }

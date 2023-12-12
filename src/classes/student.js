@@ -12,14 +12,14 @@ class Student extends Account{
         
         const studentAccount = isChild ? session : session.data.accounts[0]
         const profileLink = isChild ? studentAccount : studentAccount.profile
-        this.eleve = {
+        this.student = {
             prenom: studentAccount.prenom, 
             nom: studentAccount.nom, 
             mail: studentAccount.email || null, 
             sexe: profileLink.sexe,
             photo: profileLink.photo.length === 0 ? null : profileLink.photo
         }
-        this.classe = {
+        this.class = {
             id: profileLink.classe.id, 
             code: profileLink.classe.code, 
             nom: profileLink.classe.libelle
@@ -97,13 +97,13 @@ class Student extends Account{
                 id: this.user.id,
                 type_account: this.user.accountType,
                 der_co: this.user.lastConnexion,
-                prenom: this.eleve.prenom,
-                nom: this.eleve.nom,
-                email: this.eleve.mail,
+                prenom: this.student.prenom,
+                nom: this.student.nom,
+                email: this.student.mail,
                 etablissement: this.etablissement.nom,
-                sexe: this.eleve.sexe,
-                classe: this.classe.nom,
-                photo: this.eleve.photo
+                sexe: this.student.sexe,
+                classe: this.class.nom,
+                photo: this.student.photo
             }
 
             return resolve(totr)
@@ -117,7 +117,7 @@ class Student extends Account{
                 return reject('Cloud not retrieve token')
             }
 
-            request(`/messagerie/contacts/professeurs.awp?verbe=get&idClasse=${this.classe.id}&v=4.43.0`, this.session.token)
+            request(`/messagerie/contacts/professeurs.awp?verbe=get&idClasse=${this.class.id}&v=4.43.0`, this.session.token)
             .catch(err => reject(err))
             .then(datas => {
                 let contacts = datas.data.contacts
@@ -170,7 +170,7 @@ class Student extends Account{
                 return reject('Cloud not retrieve token')
             }
 
-            Photo(this.eleve.photo)
+            Photo(this.student.photo)
             .catch(err => reject(err))
             .then(datas => resolve(datas) )
         })
