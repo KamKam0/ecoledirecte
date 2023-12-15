@@ -444,12 +444,14 @@ let schoolLife = await session.getSchoolOffice()
 
 ### Marks Average
 
-Mars variable is the marks you get with the .getMarks method
-Periods variable is the periods you get with the .trons in the .getMarks method
-Period variable refers the code of the period. For exemple: A001
+Mars variable is the marks you get with the .getMarks method.
+
+Periods variable is the periods you get with the .trons in the .getMarks method.
+
+Period variable refers the code of the period. For exemple: A001.
 
 ```js
-let moyenne = await session.calculareAverage(marks, periods, period)
+let moyenne = await session.calculateAverage(marks, periods, period)
 /* Expexted Output
     {
         matieres: [
@@ -474,6 +476,7 @@ let moyenne = await session.calculareAverage(marks, periods, period)
 ## Downloading files
 
 id variable is the id of the file.
+
 Type is a letter/word that indicates the page you want to download your file from:
 - D for the homwork page
 - M for the mail page

@@ -314,7 +314,7 @@ class Student extends Account{
         })
     }
 
-    calculareAverage(notes, trons, period){
+    calculateAverage(notes, trons, period){
         trons = trons.find(e => e.code === period).datas
         let toeval = notes.filter(no => no.codePeriode === period)
         let total = []
