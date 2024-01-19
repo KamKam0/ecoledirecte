@@ -303,10 +303,6 @@ class Student extends Account{
             request(`/eleves/${this.user.id}/viescolaire`, this.session.token)
             .catch(err => reject(err))
             .then(datas => {
-                if (datas.message.includes('Aucune')) {
-                    return resolve(datas.message)
-                }
-
                 let truedata = {}
                 Object.entries(datas.data).filter(e => e[0] !== "parametrage").forEach(da => truedata[da[0]] = da[1])
                 return resolve(truedata)
