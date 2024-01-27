@@ -16,7 +16,7 @@
   "keywords": ["EcoleDirecte", "Ecole Directe", "france", "api", "node"],
   "homepage": "https://github.com/KamKam0/ecoledirecte",
   "author": "KamKam <kamkam.dev.contact@gmail.com>",
-  "license": "ISC",
+  "license": "MPL 2.0",
   "dependencies": {
     "node-fetch": "^2.6.7"
   }
