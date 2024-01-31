@@ -8,7 +8,6 @@ studentAccount.login()
 
     session.getMarks()
     .then(marks => {
-        console.log(marks)
         console.log('student fetch marks successful')
 
         session.calculateAverage(marks.notes, marks.trons, 'A001')
